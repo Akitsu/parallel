@@ -1,5 +1,7 @@
 package Utils;
 
+import main.Assignment2;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,14 +11,12 @@ import java.util.concurrent.BlockingQueue;
 public class StudentNumberConsumer implements Runnable{
     private int id;
     private BlockingQueue<int[]> queue;
-    private ArrayList<Integer> sortedArray;
     private int amount;
-    private ArrayCreator ac = new ArrayCreator();
 
-    public StudentNumberConsumer(int id, BlockingQueue<int[]> queue, ArrayList<Integer> sortedArray, int amount) {
+
+    public StudentNumberConsumer(int id, BlockingQueue<int[]> queue, int amount) {
         this.id = id;
         this.queue = queue;
-        this.sortedArray = sortedArray;
         this.amount = amount;
     }
 
@@ -26,23 +26,15 @@ public class StudentNumberConsumer implements Runnable{
             try {
                 int[] studentNumberArray = queue.take();
                 BucketSort.sort(studentNumberArray, amount);
-                addToArray(studentNumberArray);
-//                for (int i = 0; i < studentNumberArray.length; i++) {
-//                    System.out.println(i + " = " + studentNumberArray[i]);
-//                }
+
+                Assignment2.update(studentNumberArray);
+
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private synchronized void addToArray(int[] a) {
-
-        System.out.println("sgfsdgw");
-        for (int i = 0; i < a.length; i++) {
-            System.out.println("gwgwe");
-            ac.addInt(a[i]);
-        }
-    }
 
 }

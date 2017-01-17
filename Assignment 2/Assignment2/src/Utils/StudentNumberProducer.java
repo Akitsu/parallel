@@ -9,8 +9,6 @@ public class StudentNumberProducer implements Runnable{
     BlockingQueue<int[]> queue;
     int[] studentNumbers;
 
-
-
     public StudentNumberProducer(BlockingQueue<int[]> queue, int[] a) {
         this.studentNumbers = a;
         this.queue = queue;

@@ -11,7 +11,7 @@ public class Assignment2 {
     private static int[] students;
     private static ExecutorService executorProducers;
     private static ExecutorService executorConsumers;
-    private static int amount = 1000000;
+    private static int amount = 5000000;
     private static EventProfiler profiler;
     public static void main(String[] args) throws InterruptedException {
 
@@ -22,6 +22,7 @@ public class Assignment2 {
         Generator g = new Generator();
         students = g.generate(amount);
         profiler.log("students generated");
+//
 //        BucketSort.sort(students,amount);
 //        profiler.log("normal bucket sort");
 
@@ -30,6 +31,7 @@ public class Assignment2 {
 
         if (startServices()){
         sortedArraylist = BucketSort.sortArrayList(partlySorted,amount);
+            profiler.log("endsort");
         }
 //        for (int i = 0; i < sortedArraylist.size(); i++) {
 //            System.out.println(sortedArraylist.get(i));
@@ -39,9 +41,11 @@ public class Assignment2 {
 
     }
     public static synchronized void update (int[] intArray){
+
         for (int i = 0; i < intArray.length; i++) {
             partlySorted.add(intArray[i]);
         }
+        profiler.log("Updating array");
 
     }
     public static  void startProducers(){
@@ -57,10 +61,10 @@ public class Assignment2 {
         executorConsumers = Executors.newCachedThreadPool();
         StudentNumberConsumer consumer = new StudentNumberConsumer(1, queue, amount);
         StudentNumberConsumer consumer1 = new StudentNumberConsumer(2, queue, amount);
-        StudentNumberConsumer consumer2 = new StudentNumberConsumer(3, queue, amount);
+//        StudentNumberConsumer consumer2 = new StudentNumberConsumer(3, queue, amount);
         executorConsumers.submit(consumer);
         executorConsumers.submit(consumer1);
-        executorConsumers.submit(consumer2);
+//        executorConsumers.submit(consumer2);
         profiler.log("starting consumer");
 
     }

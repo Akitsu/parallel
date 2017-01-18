@@ -16,7 +16,7 @@ public class StudentNumberProducer implements Runnable{
 
     @Override
     public void run() {
-        int partSize = 100000;
+        int partSize = 500000;
         int i = 0;
         int arrayIndex = 0;
         int amountParts = (int) Math.ceil(studentNumbers.length / partSize);
